@@ -6,17 +6,20 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "start": "node dist/server.js",
     "typecheck": "tsc --noEmit",
     "probar:busqueda": "tsx scripts/probar-busqueda.ts",
     "probar:ia": "IA_DEBUG=1 tsx scripts/probar-ia.ts",
-    "probar:chat": "tsx scripts/probar-chat.ts"
+    "probar:chat": "tsx scripts/probar-chat.ts",
+    "limpiar": "tsx scripts/limpiar-conversaciones.ts",
+    "probar:seguridad": "tsx scripts/probar-seguridad.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "helmet": "^8.3.0",
     "mysql2": "^3.15.3"
   },
   "devDependencies": {

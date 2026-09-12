@@ -5,6 +5,7 @@ import { VidrioTemplado } from '../ui/VidrioTemplado';
 import { IconoChat, IconoCerrar } from '../ui/Iconos';
 import { ListaMensajes } from './ListaMensajes';
 import { Compositor } from './Compositor';
+import './chat-lanzador.css';
 import './chat-panel.css';
 
 /**
@@ -13,7 +14,7 @@ import './chat-panel.css';
  * la conversación no se pierda.
  */
 export function ChatWidget() {
-  const { chat, chatAbierto, pedidoFoco, cerrarChat, abrirChat } = useTienda();
+  const { chat, chatAbierto, pedidoFoco, cerrarChat, abrirChat, abrirLegal } = useTienda();
   const lanzador = useRef(null);
   const campo = useRef(null);
   const titulo = useRef(null);
@@ -85,6 +86,12 @@ export function ChatWidget() {
 
         <ListaMensajes />
         <Compositor ref={campo} />
+        <p className="chat__aviso">
+          Respuestas generadas por IA: pueden tener errores, verificá antes de comprar.{' '}
+          <button type="button" className="chat__aviso-enlace" onClick={() => abrirLegal('ia')}>
+            Cómo funciona
+          </button>
+        </p>
       </VidrioTemplado>
     </>
   );

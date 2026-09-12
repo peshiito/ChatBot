@@ -33,3 +33,16 @@ export async function insertarMensajes(conversacionId: number, mensajes: NuevoMe
     filas.flat(),
   );
 }
+
+/**
+ * Borra las conversaciones sin actividad desde hace N días. Los mensajes se van
+ * con ellas por la FK ON DELETE CASCADE. Devuelve cuántas se borraron.
+ */
+export async function borrarConversacionesViejas(dias: number): Promise<number> {
+  if (dias <= 0) return 0;
+  const [resultado] = await obtenerPool().query<ResultSetHeader>(
+    'DELETE FROM conversaciones WHERE ultima_actividad < NOW() - INTERVAL ? DAY',
+    [dias],
+  );
+  return resultado.affectedRows;
+}

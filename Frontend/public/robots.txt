@@ -1,0 +1,4 @@
+# Demo público: se puede indexar la página.
+User-agent: *
+Allow: /
+Disallow: /api/

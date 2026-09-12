@@ -2,6 +2,12 @@ import { useTienda } from '../../context/TiendaContext';
 import { IconoChat } from '../ui/Iconos';
 import './layout.css';
 
+const ENLACES_LEGALES = [
+  ['demo', 'Sobre el demo'],
+  ['privacidad', 'Privacidad'],
+  ['ia', 'Cómo funciona la IA'],
+];
+
 export function BandaDemo() {
   return (
     <p className="banda-demo">
@@ -32,13 +38,22 @@ export function Encabezado() {
 }
 
 export function Pie() {
+  const { abrirLegal } = useTienda();
+
   return (
     <footer className="pie">
       <p>
         <strong>HardStore</strong> es una tienda de ejemplo para mostrar el asesor. Los productos y
-        sus specs son reales; los precios son de referencia, en pesos. Fotos de los fabricantes y de
-        Wikimedia Commons (el crédito está en cada ficha).
+        sus specs son reales; los precios son de referencia, en pesos, y no son una oferta comercial.
+        Fotos de los fabricantes y de Wikimedia Commons (el crédito está en cada ficha).
       </p>
+      <nav className="pie__enlaces" aria-label="Información legal">
+        {ENLACES_LEGALES.map(([id, texto]) => (
+          <button key={id} type="button" className="pie__enlace" onClick={() => abrirLegal(id)}>
+            {texto}
+          </button>
+        ))}
+      </nav>
     </footer>
   );
 }

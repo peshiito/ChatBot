@@ -8,3 +8,7 @@ build/
 .vite/
 test-results/
 playwright-report/
+
+# Videos del demo: se regeneran con `npm run demo` y pesan de más para el repo.
+docs/demo/*.webm
+docs/demo/*.mp4

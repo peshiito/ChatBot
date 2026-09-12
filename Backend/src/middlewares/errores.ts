@@ -27,6 +27,13 @@ function traducirErrorIA(err: ErrorIA): { status: number; cuerpo: RespuestaError
         },
       };
     }
+    case 'presupuesto':
+      return {
+        status: 503,
+        cuerpo: {
+          error: 'El asesor llegó a su cupo de consultas por hoy. Mañana vuelve a estar disponible.',
+        },
+      };
     case 'timeout':
       return { status: 504, cuerpo: { error: 'El asistente tardó demasiado en responder. Probá de nuevo.' } };
     case 'configuracion':
@@ -42,6 +49,13 @@ export function noEncontrado(_req: Request, res: Response): void {
 
 /** Nunca devuelve un stack trace al cliente. */
 export function manejarErrores(err: unknown, req: Request, res: Response, _next: NextFunction): void {
+  // El middleware de CORS rechaza con un Error comun; no es un fallo del servidor.
+  if (err instanceof Error && err.message.startsWith('Origen no permitido')) {
+    console.warn(`[cors] ${err.message}`);
+    res.status(403).json({ error: 'Origen no permitido.' });
+    return;
+  }
+
   if (err instanceof ErrorHttp) {
     res.status(err.status).json({ error: err.mensajePublico });
     return;

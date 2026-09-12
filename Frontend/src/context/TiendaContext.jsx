@@ -13,6 +13,8 @@ export function TiendaProvider({ children }) {
   const chat = useChat();
   const [productoAbierto, setProductoAbierto] = useState(null);
   const [chatAbierto, setChatAbierto] = useState(false);
+  // Id de la sección legal abierta, o null.
+  const [legalAbierto, setLegalAbierto] = useState(null);
   const [borrador, setBorrador] = useState('');
   // Cambia en cada apertura, aunque el chat ya estuviera abierto: dispara el foco.
   const [pedidoFoco, setPedidoFoco] = useState(0);
@@ -44,8 +46,11 @@ export function TiendaProvider({ children }) {
       productoAbierto,
       abrirDetalle: setProductoAbierto,
       cerrarDetalle: () => setProductoAbierto(null),
+      legalAbierto,
+      abrirLegal: setLegalAbierto,
+      cerrarLegal: () => setLegalAbierto(null),
     }),
-    [catalogo, chat, chatAbierto, pedidoFoco, abrirChat, borrador, productoAbierto],
+    [catalogo, chat, chatAbierto, pedidoFoco, abrirChat, borrador, productoAbierto, legalAbierto],
   );
 
   return <TiendaContext.Provider value={valor}>{children}</TiendaContext.Provider>;

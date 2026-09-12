@@ -1,0 +1,30 @@
+/* ---- Botón flotante ---- */
+.lanzador {
+  position: fixed;
+  z-index: var(--z-lanzador);
+  right: max(var(--e-4), env(safe-area-inset-right));
+  bottom: max(var(--e-4), env(safe-area-inset-bottom));
+  transition:
+    transform var(--dur-press) var(--curva-entrada),
+    box-shadow var(--dur-press) var(--curva-entrada),
+    opacity var(--dur-corta) ease,
+    visibility 0s;
+}
+
+.lanzador[data-oculto='true'] {
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease,
+    visibility 0s linear 120ms;
+}
+
+.lanzador__texto { display: none; }
+
+@media (min-width: 640px) {
+  .lanzador__texto { display: inline; }
+  .lanzador__texto-corto { display: none; }
+}

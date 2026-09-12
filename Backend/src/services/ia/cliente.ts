@@ -1,8 +1,16 @@
 import { env } from '../../config/env';
 import type { MensajeIA, OpcionesCompletado } from '../../types/ia';
+import { hayCupo, registrarUso, segundosHastaReinicio } from './presupuesto';
 
 /** 'herramienta': el modelo armó una llamada que el proveedor rechazó por formato; se puede corregir. */
-export type TipoErrorIA = 'configuracion' | 'limite' | 'timeout' | 'proveedor' | 'herramienta';
+/** 'presupuesto': se agotó el cupo diario propio de tokens. */
+export type TipoErrorIA =
+  | 'configuracion'
+  | 'limite'
+  | 'timeout'
+  | 'proveedor'
+  | 'herramienta'
+  | 'presupuesto';
 
 type MensajeAsistente = Extract<MensajeIA, { role: 'assistant' }>;
 
@@ -81,6 +89,7 @@ async function llamarModelo(modelo: string, opciones: OpcionesCompletado): Promi
   }
 
   const datos = (await respuesta.json()) as RespuestaCompletado;
+  if (datos.usage) registrarUso(datos.usage.total_tokens);
   const mensaje = datos.choices[0]?.message;
   if (!mensaje) {
     throw new ErrorIA('proveedor', 'El proveedor devolvió una respuesta sin mensajes.');
@@ -123,6 +132,9 @@ async function probarModelos(opciones: OpcionesCompletado): Promise<MensajeAsist
 export async function completarChat(opciones: OpcionesCompletado): Promise<MensajeAsistente> {
   if (!env.ia.apiKey) {
     throw new ErrorIA('configuracion', 'Falta GROQ_API_KEY en el .env.');
+  }
+  if (!hayCupo()) {
+    throw new ErrorIA('presupuesto', 'Cupo diario de tokens agotado.', segundosHastaReinicio());
   }
 
   const primero = await probarModelos(opciones);

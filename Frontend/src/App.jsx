@@ -4,6 +4,7 @@ import { Hero } from './components/layout/Hero';
 import { Catalogo } from './components/catalogo/Catalogo';
 import { DetalleProducto } from './components/catalogo/DetalleProducto';
 import { ChatWidget } from './components/chat/ChatWidget';
+import { Legales } from './components/legal/Legales';
 
 export function App() {
   return (
@@ -19,6 +20,7 @@ export function App() {
       </main>
       <Pie />
       <DetalleProducto />
+      <Legales />
       <ChatWidget />
     </TiendaProvider>
   );

@@ -1,0 +1,58 @@
+# Produccion: MySQL + backend. Sin phpMyAdmin y sin el puerto de MySQL publicado:
+# a la base solo se llega desde adentro de la red de Docker.
+#
+#   docker compose -f docker-compose.prod.yml up -d --build
+#
+# Las variables salen del .env del servidor (nunca del repositorio).
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: hardstore_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+      - ./db/mysql.cnf:/etc/mysql/conf.d/charset.cnf:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  backend:
+    build: .
+    container_name: hardstore_backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      GROQ_MODEL: ${GROQ_MODEL}
+      GROQ_MODELOS_RESPALDO: ${GROQ_MODELOS_RESPALDO}
+      TIENDA_NOMBRE: ${TIENDA_NOMBRE}
+      RATE_LIMIT_MAX: ${RATE_LIMIT_MAX}
+      RATE_LIMIT_GLOBAL_MAX: ${RATE_LIMIT_GLOBAL_MAX}
+      IA_TOKENS_DIA_MAX: ${IA_TOKENS_DIA_MAX}
+      RETENCION_DIAS: ${RETENCION_DIAS}
+    # Solo escucha en localhost: adelante va un proxy con HTTPS (Caddy, Nginx, Traefik).
+    ports:
+      - "127.0.0.1:3000:3000"
+
+volumes:
+  mysql_data:
