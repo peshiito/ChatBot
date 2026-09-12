@@ -1,0 +1,49 @@
+.compositor {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--e-2);
+  /* Lateral y abajo dejan libres los tornillos del vidrio. */
+  padding: var(--e-3) 28px calc(26px + env(safe-area-inset-bottom));
+  border-top: var(--borde-fino) solid var(--borde);
+  background: var(--vidrio-denso);
+}
+
+/* En el celular el panel no tiene tornillos abajo. */
+@media (max-width: 639px) {
+  .compositor {
+    padding: var(--e-3) var(--e-4) calc(var(--e-4) + env(safe-area-inset-bottom));
+  }
+}
+
+.compositor__campo {
+  flex: 1;
+  min-height: 44px;
+  padding: 10px var(--e-3);
+  resize: none;
+  border: var(--borde-fino) solid var(--borde);
+  border-radius: var(--radio-m);
+  background: var(--blanco);
+  box-shadow: inset 3px 3px 0 rgb(16 17 20 / 0.08);
+  font-size: var(--t-base); /* 16px: en iOS, menos hace zoom al enfocar */
+  line-height: 24px;
+}
+
+.compositor__campo::placeholder {
+  color: var(--texto-tenue);
+}
+
+.compositor__campo:focus-visible {
+  outline-offset: 1px;
+}
+
+.compositor__contador {
+  position: absolute;
+  top: -22px;
+  right: var(--e-4);
+  padding: 0 var(--e-2);
+  border-radius: 4px;
+  background: var(--tinta);
+  color: var(--blanco);
+  font-size: var(--t-mini);
+}

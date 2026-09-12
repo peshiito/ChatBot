@@ -1,0 +1,48 @@
+/* Celular: hoja que sube desde abajo, con la curva de los drawers de iOS. */
+@media (max-width: 639px) {
+  .detalle {
+    width: 100%;
+    max-height: 92dvh;
+    margin: auto 0 0;
+    border-bottom: 0;
+    border-radius: var(--radio-l) var(--radio-l) 0 0;
+    box-shadow: none;
+    transition:
+      opacity var(--dur-corta) ease,
+      transform var(--dur-panel) var(--curva-sheet),
+      overlay var(--dur-panel) allow-discrete,
+      display var(--dur-panel) allow-discrete;
+  }
+
+  .detalle:not([open]) {
+    opacity: 1;
+    transform: translateY(100%);
+  }
+
+  @starting-style {
+    .detalle[open] {
+      opacity: 1;
+      transform: translateY(100%);
+    }
+  }
+
+  .detalle__info {
+    padding-bottom: calc(var(--e-6) + env(safe-area-inset-bottom));
+  }
+}
+
+/* Escritorio: dibujo a la izquierda, ficha a la derecha. */
+@media (min-width: 760px) {
+  .detalle__hoja {
+    grid-template-columns: 0.9fr 1.1fr;
+    grid-template-areas:
+      'barra barra'
+      'vitrina info';
+  }
+
+  .detalle__vitrina {
+    align-self: stretch;
+    border-right: var(--borde-grueso) solid var(--borde);
+    border-bottom: 0;
+  }
+}

@@ -1,0 +1,120 @@
+/*
+ * Botón brutal: al apretarlo "se hunde" exactamente lo que medía la sombra,
+ * como una tecla mecánica. La sombra desaparece y el botón ocupa su lugar.
+ */
+.boton {
+  --boton-fondo: var(--superficie);
+  --boton-texto: var(--texto);
+  --boton-sombra: var(--sombra-s);
+  --boton-hundido: 3px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-2);
+  min-height: 44px;
+  padding: var(--e-2) var(--e-4);
+  border: var(--borde-fino) solid var(--borde);
+  border-radius: var(--radio-s);
+  background: var(--boton-fondo);
+  color: var(--boton-texto);
+  box-shadow: var(--boton-sombra);
+  font-weight: 700;
+  font-size: var(--t-chico);
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    transform var(--dur-press) var(--curva-entrada),
+    box-shadow var(--dur-press) var(--curva-entrada),
+    background-color var(--dur-corta) ease;
+}
+
+.boton:active:not(:disabled) {
+  transform: translate(var(--boton-hundido), var(--boton-hundido));
+  box-shadow: 0 0 0 var(--tinta);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .boton:hover:not(:disabled) {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--tinta);
+  }
+
+  .boton:active:not(:disabled) {
+    transform: translate(var(--boton-hundido), var(--boton-hundido));
+    box-shadow: 0 0 0 var(--tinta);
+  }
+}
+
+.boton:disabled {
+  opacity: 0.45;
+  box-shadow: none;
+}
+
+.boton--accion {
+  --boton-fondo: var(--accion);
+  --boton-texto: var(--en-accion);
+}
+
+.boton--accion:active:not(:disabled) {
+  background: var(--accion-hundida);
+}
+
+.boton--grande {
+  --boton-sombra: var(--sombra-m);
+  --boton-hundido: 5px;
+  min-height: 52px;
+  padding: var(--e-3) var(--e-5);
+  font-size: var(--t-base);
+}
+
+.boton--icono {
+  width: 44px;
+  padding: 0;
+}
+
+.boton svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ---- Chips de preguntas (hero y chat) ---- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  min-height: 40px;
+  padding: var(--e-2) var(--e-3);
+  border: var(--borde-fino) solid var(--borde);
+  border-radius: 999px;
+  background: var(--vidrio-denso);
+  font-size: var(--t-chico);
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: left;
+  transition:
+    transform var(--dur-press) var(--curva-entrada),
+    box-shadow var(--dur-press) var(--curva-entrada),
+    background-color var(--dur-corta) ease;
+}
+
+.chip:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover {
+    background: var(--precio);
+    box-shadow: var(--sombra-s);
+    transform: translate(-1px, -1px);
+  }
+}

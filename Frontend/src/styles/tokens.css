@@ -1,0 +1,100 @@
+/*
+ * Tokens de HardStore.
+ * Primitivos: materiales del mundo del hardware.
+ * Semánticos: para qué se usa cada uno. Los componentes solo usan estos.
+ */
+:root {
+  /* ---- Primitivos ---- */
+  --aluminio: #e3e7ea;       /* gabinete de aluminio cepillado */
+  --aluminio-oscuro: #c9d0d5;
+  --tinta: #101114;          /* bordes, texto, sombras duras */
+  --tinta-suave: #3d434b;
+  --tinta-tenue: #5f6772;
+  --blanco: #ffffff;
+  --pcb: #0a7a48;            /* máscara de soldadura de una placa */
+  --pcb-hundido: #075c36;
+  --pcb-claro: #d4efe0;
+  --etiqueta: #ffd23f;       /* sticker de precio */
+  --alerta: #c2410c;
+  --alerta-claro: #fde4d6;
+  --rgb-cian: #22d3ee;
+  --rgb-magenta: #f43fbe;
+  --rgb-verde: #4ade80;
+
+  /* ---- Semánticos ---- */
+  --fondo: var(--aluminio);
+  --superficie: var(--blanco);
+  --texto: var(--tinta);
+  --texto-secundario: var(--tinta-suave);
+  --texto-tenue: var(--tinta-tenue);
+  --borde: var(--tinta);
+  --accion: var(--pcb);
+  --accion-hundida: var(--pcb-hundido);
+  --en-accion: var(--blanco);
+  --precio: var(--etiqueta);
+  --disponible: var(--pcb);
+  --disponible-fondo: var(--pcb-claro);
+  --agotado: var(--alerta);
+  --agotado-fondo: var(--alerta-claro);
+  --foco: var(--tinta);
+
+  /* Vidrio templado: translúcido pero con marco brutal. */
+  --vidrio: rgb(255 255 255 / 0.58);
+  --vidrio-denso: rgb(255 255 255 / 0.78);
+  --vidrio-blur: blur(18px) saturate(160%);
+  --rgb-tira: linear-gradient(90deg, var(--rgb-cian), var(--rgb-magenta), var(--rgb-verde), var(--rgb-cian));
+
+  /* ---- Tipografía ---- */
+  --fuente-titulo: 'Archivo', 'Arial Black', system-ui, sans-serif;
+  --fuente-texto: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fuente-datos: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --ancho-titulo: 125;       /* Archivo Expanded */
+
+  /* Escala 1.25 desde 16px */
+  --t-mini: 0.75rem;
+  --t-chico: 0.875rem;
+  --t-base: 1rem;
+  --t-medio: 1.25rem;
+  --t-grande: 1.5625rem;
+  --t-titulo: clamp(2rem, 1.2rem + 3.6vw, 3.8rem);
+
+  /* ---- Espaciado (base 4px) ---- */
+  --e-1: 4px;
+  --e-2: 8px;
+  --e-3: 12px;
+  --e-4: 16px;
+  --e-5: 24px;
+  --e-6: 32px;
+  --e-7: 48px;
+  --e-8: 72px;
+
+  /* ---- Forma y profundidad: una sola estrategia, sombra dura sin blur ---- */
+  --borde-grueso: 3px;
+  --borde-fino: 2px;
+  --radio-s: 6px;
+  --radio-m: 10px;
+  --radio-l: 14px;
+  --sombra-s: 3px 3px 0 var(--tinta);
+  --sombra-m: 5px 5px 0 var(--tinta);
+  --sombra-l: 8px 8px 0 var(--tinta);
+
+  /* ---- Movimiento ---- */
+  --curva-entrada: cubic-bezier(0.22, 1, 0.36, 1);
+  --curva-mover: cubic-bezier(0.25, 1, 0.5, 1);
+  --curva-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 120ms;
+  --dur-corta: 180ms;
+  --dur-panel: 280ms;
+
+  /* ---- Capas ---- */
+  --z-lanzador: 40;
+  --z-chat: 50;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --vidrio: rgb(255 255 255 / 0.96);
+    --vidrio-denso: var(--blanco);
+    --vidrio-blur: none;
+  }
+}

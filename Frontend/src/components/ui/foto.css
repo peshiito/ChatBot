@@ -1,0 +1,44 @@
+/* Vitrinas con foto: fondo blanco (el de las fotos de fabricante) y la foto a sangre. */
+/* Dos clases a propósito: tiene que ganarle al fondo punteado de cada vitrina. */
+.tarjeta__vitrina.vitrina--foto,
+.caja__vitrina.vitrina--foto,
+.detalle__vitrina.vitrina--foto {
+  background: var(--blanco);
+}
+
+.vitrina--foto .foto {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.detalle__vitrina.vitrina--foto {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.detalle__vitrina.vitrina--foto .foto {
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+}
+
+.detalle__vitrina {
+  margin: 0;
+}
+
+.detalle__credito {
+  position: absolute;
+  right: var(--e-2);
+  bottom: var(--e-2);
+  padding: 1px var(--e-2);
+  border-radius: 4px;
+  background: rgb(255 255 255 / 0.85);
+  color: var(--texto-secundario);
+  font-size: var(--t-mini);
+}
+
+.detalle__vitrina:not(.vitrina--foto) .detalle__credito {
+  position: static;
+}

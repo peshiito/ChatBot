@@ -1,0 +1,12 @@
+# utf8mb4 en el servidor y también en el cliente que carga db/init/*.sql.
+# Sin la sección [client], el cliente lee los .sql como latin1 y las tildes
+# quedan guardadas con doble codificación ("RefrigeraciÃ³n").
+[mysqld]
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+
+[client]
+default-character-set=utf8mb4
+
+[mysql]
+default-character-set=utf8mb4

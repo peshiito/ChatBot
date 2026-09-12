@@ -1,0 +1,140 @@
+.mensajes {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--e-3);
+  padding: var(--e-4) var(--e-5);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.mensaje {
+  max-width: 100%;
+  animation: aparecer 220ms var(--curva-entrada) both;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.mensaje--usuario {
+  align-self: flex-end;
+  max-width: 85%;
+  padding: var(--e-2) var(--e-4);
+  border-radius: var(--radio-l) var(--radio-l) 4px var(--radio-l);
+  background: var(--tinta);
+  color: var(--blanco);
+  box-shadow: 3px 3px 0 var(--accion);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.mensaje--asesor {
+  padding: var(--e-3) var(--e-4) var(--e-4);
+  border: var(--borde-fino) solid var(--borde);
+  border-radius: var(--radio-l) var(--radio-l) var(--radio-l) 4px;
+  background: var(--superficie);
+  box-shadow: var(--sombra-s);
+}
+
+.mensaje--error {
+  display: grid;
+  justify-items: start;
+  gap: var(--e-3);
+  padding: var(--e-3) var(--e-4);
+  border: var(--borde-fino) solid var(--agotado);
+  border-radius: var(--radio-m);
+  background: var(--agotado-fondo);
+  font-weight: 500;
+}
+
+/* ---- Pensando: tres LEDs RGB ---- */
+.mensaje--pensando {
+  align-self: flex-start;
+  padding: var(--e-3) var(--e-4);
+  border: var(--borde-fino) solid var(--borde);
+  border-radius: var(--radio-l);
+  background: var(--vidrio-denso);
+}
+
+.puntos {
+  display: flex;
+  gap: 6px;
+}
+
+.puntos span {
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--tinta);
+  border-radius: 50%;
+  background: var(--rgb-cian);
+  animation: latido 1s ease-in-out infinite;
+}
+
+.puntos span:nth-child(2) { background: var(--rgb-magenta); animation-delay: 150ms; }
+.puntos span:nth-child(3) { background: var(--rgb-verde); animation-delay: 300ms; }
+
+@keyframes latido {
+  0%, 100% { opacity: 0.35; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* ---- Texto del asesor ---- */
+.texto-rico {
+  display: grid;
+  gap: var(--e-2);
+  overflow-wrap: anywhere;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.texto-rico ul {
+  display: grid;
+  gap: var(--e-1);
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.texto-rico li::marker {
+  color: var(--accion);
+}
+
+.texto-rico strong {
+  font-weight: 700;
+}
+
+.texto-rico__nota {
+  padding: var(--e-2) var(--e-3);
+  border: var(--borde-fino) dashed var(--borde);
+  border-radius: var(--radio-s);
+  background: var(--aluminio);
+}
+
+/* ---- Bienvenida ---- */
+.bienvenida {
+  display: grid;
+  gap: var(--e-3);
+  margin-top: var(--e-2);
+}
+
+.bienvenida__texto {
+  font-size: var(--t-medio);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.bienvenida__etiqueta {
+  margin-top: var(--e-2);
+  color: var(--texto-secundario);
+  font-size: var(--t-mini);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chips--columna {
+  flex-direction: column;
+  align-items: flex-start;
+}

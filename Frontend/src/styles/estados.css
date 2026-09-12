@@ -1,0 +1,38 @@
+/* Estados compartidos por catálogo, ficha y chat. */
+.stock {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  font-size: var(--t-chico);
+  font-weight: 600;
+}
+
+.stock::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--tinta);
+  border-radius: 50%;
+  background: var(--disponible);
+}
+
+.stock--pocas::before { background: var(--precio); }
+.stock--agotado { color: var(--agotado); }
+.stock--agotado::before { background: var(--agotado-fondo); }
+
+.tarjeta--esqueleto { box-shadow: var(--sombra-s); }
+
+.esqueleto {
+  display: block;
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--aluminio) 25%, var(--blanco) 50%, var(--aluminio) 75%) 0 0 / 300% 100%;
+  animation: esqueleto 1.3s linear infinite;
+}
+
+.esqueleto--corto { width: 35%; }
+.esqueleto--medio { width: 60%; }
+
+@keyframes esqueleto {
+  to { background-position: -150% 0; }
+}

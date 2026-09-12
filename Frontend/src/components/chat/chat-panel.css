@@ -1,0 +1,144 @@
+/* ---- Botón flotante ---- */
+.lanzador {
+  position: fixed;
+  z-index: var(--z-lanzador);
+  right: max(var(--e-4), env(safe-area-inset-right));
+  bottom: max(var(--e-4), env(safe-area-inset-bottom));
+  transition:
+    transform var(--dur-press) var(--curva-entrada),
+    box-shadow var(--dur-press) var(--curva-entrada),
+    opacity var(--dur-corta) ease,
+    visibility 0s;
+}
+
+.lanzador[data-oculto='true'] {
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease,
+    visibility 0s linear 120ms;
+}
+
+.lanzador__texto { display: none; }
+
+@media (min-width: 640px) {
+  .lanzador__texto { display: inline; }
+  .lanzador__texto-corto { display: none; }
+}
+
+/* ---- Panel: el vidrio templado ---- */
+.chat {
+  position: fixed;
+  z-index: var(--z-chat);
+  right: var(--e-5);
+  bottom: var(--e-5);
+  display: flex;
+  flex-direction: column;
+  width: min(420px, 100vw - 2 * var(--e-4));
+  height: min(700px, 100dvh - 2 * var(--e-5));
+  overflow: hidden;
+  transform-origin: bottom right; /* sale del botón flotante */
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  transition:
+    opacity var(--dur-corta) ease,
+    transform var(--dur-corta) var(--curva-entrada),
+    visibility 0s linear var(--dur-corta);
+}
+
+.chat[data-abierto='true'] {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 200ms ease,
+    transform var(--dur-panel) var(--curva-entrada),
+    visibility 0s;
+}
+
+.chat__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  padding: var(--e-5) var(--e-5) var(--e-3) calc(var(--e-5) + 6px);
+  border-bottom: var(--borde-fino) solid var(--borde);
+}
+
+.chat__titulo {
+  font-size: var(--t-medio);
+}
+
+.chat__titulo:focus-visible {
+  outline-offset: 4px;
+}
+
+.chat__estado {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+  margin-top: var(--e-1);
+  color: var(--texto-secundario);
+  font-size: var(--t-mini);
+}
+
+.chat__led {
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--tinta);
+  border-radius: 50%;
+  background: var(--rgb-verde);
+}
+
+.chat__led[data-pensando='true'] {
+  animation: led-rgb 1.4s linear infinite;
+}
+
+@keyframes led-rgb {
+  0%, 100% { background: var(--rgb-cian); }
+  33% { background: var(--rgb-magenta); }
+  66% { background: var(--rgb-verde); }
+}
+
+/* Celular: hoja de pantalla completa que sube desde abajo. */
+@media (max-width: 639px) {
+  .chat {
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    border-width: 0;
+    border-radius: 0;
+    box-shadow: none;
+    transform: translateY(100%);
+    transition:
+      transform var(--dur-panel) var(--curva-sheet),
+      visibility 0s linear var(--dur-panel);
+  }
+
+  .chat[data-abierto='true'] {
+    transform: none;
+    transition:
+      transform var(--dur-panel) var(--curva-sheet),
+      visibility 0s;
+  }
+
+  .chat .vidrio__tornillo--abajo-izq,
+  .chat .vidrio__tornillo--abajo-der {
+    display: none;
+  }
+
+  .chat__cabecera {
+    padding-top: calc(var(--e-5) + env(safe-area-inset-top));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat,
+  .chat[data-abierto='true'] {
+    transform: none;
+  }
+}

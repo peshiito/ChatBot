@@ -1,0 +1,79 @@
+{
+  "info": {
+    "name": "ChatBot Catálogo",
+    "description": "Pruebas manuales de la API. Levantar antes con `npm run dev` en Backend/. El rate limit del chat es de 6 preguntas por minuto por IP.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:3000/api" },
+    { "key": "sesion_id", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Salud",
+      "request": { "method": "GET", "url": "{{base_url}}/salud" }
+    },
+    {
+      "name": "Categorías",
+      "request": { "method": "GET", "url": "{{base_url}}/categorias" }
+    },
+    {
+      "name": "Productos - coolers",
+      "request": { "method": "GET", "url": "{{base_url}}/productos?categoria=cooler" }
+    },
+    {
+      "name": "Buscar - como lo hace la IA",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/productos/buscar?categoria=cooler&socket=AM4&tdp_minimo=65&tipo=liquida"
+      }
+    },
+    {
+      "name": "Chat 1 - pregunta de referencia",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const r = pm.response.json();",
+              "if (r.sesion_id) pm.collectionVariables.set('sesion_id', r.sesion_id);",
+              "pm.test('responde 200', () => pm.response.to.have.status(200));",
+              "pm.test('trae productos', () => pm.expect(r.productos.length).to.be.above(0));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/chat",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"mensaje\": \"¿Qué water cooling le pongo a un Ryzen 5 4600G?\",\n  \"historial\": []\n}"
+        }
+      }
+    },
+    {
+      "name": "Chat 2 - repregunta con historial",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/chat",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"mensaje\": \"¿Y el más barato?\",\n  \"sesion_id\": \"{{sesion_id}}\",\n  \"historial\": [\n    { \"rol\": \"user\", \"contenido\": \"¿Qué water cooling le pongo a un Ryzen 5 4600G?\" },\n    { \"rol\": \"assistant\", \"contenido\": \"Para un Ryzen 5 4600G (65 W, AM4) te recomiendo el DeepCool LE500 Marrs, el ARCTIC Liquid Freezer II 240 y el NZXT Kraken 240. Con 65 W una torre de aire como el DeepCool AG400 también alcanza.\" }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "Chat - error de validación",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/chat",
+        "body": { "mode": "raw", "raw": "{\n  \"mensaje\": \"\"\n}" }
+      }
+    }
+  ]
+}

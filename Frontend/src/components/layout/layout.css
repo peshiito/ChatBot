@@ -1,0 +1,98 @@
+/* ---- Banda del demo ---- */
+.banda-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-3);
+  padding: var(--e-2) var(--e-4);
+  background: var(--tinta);
+  color: var(--blanco);
+  font-size: var(--t-chico);
+  text-align: center;
+}
+
+.banda-demo__marca {
+  flex-shrink: 0;
+  padding: 1px var(--e-2);
+  border-radius: 4px;
+  background: var(--precio);
+  color: var(--tinta);
+  font-size: var(--t-mini);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* ---- Encabezado: capa de vidrio, el catálogo pasa por debajo ---- */
+.encabezado {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-4);
+  padding: var(--e-3) max(var(--e-4), calc((100% - 1240px) / 2));
+  background: var(--vidrio-denso);
+  -webkit-backdrop-filter: var(--vidrio-blur);
+  backdrop-filter: var(--vidrio-blur);
+  border-bottom: var(--borde-grueso) solid var(--borde);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.logo__chip {
+  width: 26px;
+  height: 26px;
+  border: var(--borde-grueso) solid var(--tinta);
+  border-radius: 6px;
+  background: var(--precio);
+  box-shadow: inset 0 0 0 5px var(--precio), inset 0 0 0 20px var(--tinta);
+}
+
+.logo__texto {
+  font-family: var(--fuente-titulo);
+  font-variation-settings: 'wdth' var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-medio);
+  letter-spacing: -0.02em;
+}
+
+.encabezado__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--e-4);
+}
+
+.encabezado__link {
+  display: none;
+  color: var(--texto);
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 640px) {
+  .encabezado__link {
+    display: inline;
+  }
+}
+
+/* ---- Pie ---- */
+.pie {
+  margin-top: var(--e-8);
+  padding: var(--e-5) var(--e-4) var(--e-8);
+  border-top: var(--borde-grueso) solid var(--borde);
+  color: var(--texto-secundario);
+  font-size: var(--t-chico);
+  text-align: center;
+}
+
+.pie p {
+  max-width: 60ch;
+  margin-inline: auto;
+}

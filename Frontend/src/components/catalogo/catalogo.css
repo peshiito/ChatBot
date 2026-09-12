@@ -1,0 +1,121 @@
+.catalogo {
+  width: min(100% - 2 * var(--e-4), 1240px);
+  margin-inline: auto;
+  scroll-margin-top: 80px;
+}
+
+.catalogo__cabecera {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--e-4);
+  margin-bottom: var(--e-4);
+}
+
+.catalogo__titulo {
+  font-size: var(--t-grande);
+}
+
+.catalogo__total {
+  color: var(--texto-secundario);
+  font-size: var(--t-chico);
+}
+
+/* ---- Filtros: en el celular se desliza de costado ---- */
+.filtros {
+  display: flex;
+  gap: var(--e-2);
+  margin: 0 calc(-1 * var(--e-4)) var(--e-5);
+  padding: var(--e-1) var(--e-4) var(--e-3);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.filtros::-webkit-scrollbar {
+  display: none;
+}
+
+.filtro {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--e-2);
+  min-height: 44px;
+  padding: var(--e-2) var(--e-4);
+  scroll-snap-align: start;
+  border: var(--borde-fino) solid var(--borde);
+  border-radius: 999px;
+  background: var(--superficie);
+  font-weight: 700;
+  font-size: var(--t-chico);
+  transition:
+    transform var(--dur-press) var(--curva-entrada),
+    box-shadow var(--dur-press) var(--curva-entrada),
+    background-color var(--dur-corta) ease,
+    color var(--dur-corta) ease;
+}
+
+.filtro__cantidad {
+  min-width: 22px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--aluminio);
+  font-size: var(--t-mini);
+  text-align: center;
+}
+
+.filtro[aria-pressed='true'] {
+  background: var(--tinta);
+  color: var(--blanco);
+  box-shadow: 3px 3px 0 var(--accion);
+}
+
+.filtro[aria-pressed='true'] .filtro__cantidad {
+  background: var(--precio);
+  color: var(--tinta);
+}
+
+.filtro:active {
+  transform: translate(2px, 2px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .filtro[aria-pressed='false']:hover {
+    background: var(--precio);
+  }
+}
+
+@media (min-width: 900px) {
+  .filtros {
+    flex-wrap: wrap;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+}
+
+/* ---- Grilla ---- */
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: var(--e-5);
+  animation: grilla-cambia 160ms ease-out;
+}
+
+@keyframes grilla-cambia {
+  from {
+    opacity: 0;
+  }
+}
+
+.catalogo__aviso {
+  display: grid;
+  justify-items: start;
+  gap: var(--e-3);
+  margin-block: var(--e-5);
+  padding: var(--e-5);
+  border: var(--borde-grueso) dashed var(--borde);
+  border-radius: var(--radio-m);
+  background: var(--superficie);
+}

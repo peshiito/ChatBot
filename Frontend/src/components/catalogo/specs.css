@@ -1,0 +1,28 @@
+/* ---- Hoja de datos ---- */
+.specs {
+  margin: 0;
+  border: var(--borde-fino) solid var(--borde);
+  border-radius: var(--radio-s);
+}
+
+.specs__fila {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--e-4);
+  padding: var(--e-2) var(--e-3);
+  font-size: var(--t-chico);
+}
+
+.specs__fila + .specs__fila {
+  border-top: 1.5px dashed rgb(16 17 20 / 0.3);
+}
+
+.specs dt {
+  color: var(--texto-secundario);
+}
+
+.specs dd {
+  margin: 0;
+  font-weight: 500;
+  text-align: right;
+}

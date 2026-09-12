@@ -1,0 +1,129 @@
+.tarjeta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: var(--borde-grueso) solid var(--borde);
+  border-radius: var(--radio-m);
+  background: var(--superficie);
+  box-shadow: var(--sombra-m);
+  transition:
+    transform var(--dur-corta) var(--curva-entrada),
+    box-shadow var(--dur-corta) var(--curva-entrada);
+}
+
+.tarjeta:has(.tarjeta__abrir:active) {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--tinta);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tarjeta:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--tinta);
+  }
+
+  .tarjeta:has(.tarjeta__abrir:active) {
+    transform: translate(5px, 5px);
+    box-shadow: 0 0 0 var(--tinta);
+  }
+}
+
+.tarjeta:has(.tarjeta__abrir:focus-visible) {
+  outline: 3px solid var(--foco);
+  outline-offset: 4px;
+}
+
+/* ---- Vitrina: el dibujo del componente y el sticker de precio ---- */
+.tarjeta__vitrina {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  border-bottom: var(--borde-grueso) solid var(--borde);
+  background:
+    radial-gradient(circle at 1px 1px, rgb(16 17 20 / 0.18) 1px, transparent 0) 0 0 / 12px 12px,
+    var(--aluminio);
+}
+
+.tarjeta__dibujo {
+  width: 58%;
+  max-width: 180px;
+}
+
+.tarjeta__precio {
+  position: absolute;
+  top: var(--e-3);
+  right: var(--e-3);
+  padding: var(--e-1) var(--e-2);
+  border: var(--borde-fino) solid var(--tinta);
+  border-radius: 4px;
+  background: var(--precio);
+  box-shadow: var(--sombra-s);
+  font-family: var(--fuente-titulo);
+  font-variation-settings: 'wdth' var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-base);
+  font-variant-numeric: tabular-nums;
+  transform: rotate(2deg);
+}
+
+/* ---- Cuerpo ---- */
+.tarjeta__cuerpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--e-2);
+  padding: var(--e-4);
+}
+
+.tarjeta__marca {
+  color: var(--texto-tenue);
+  font-size: var(--t-mini);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tarjeta__nombre {
+  font-family: var(--fuente-texto);
+  font-variation-settings: normal;
+  font-size: var(--t-base);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.tarjeta__abrir {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+}
+
+.tarjeta__abrir::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.tarjeta__abrir:focus-visible {
+  outline: none;
+}
+
+.tarjeta__specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-1);
+  margin: 0 0 auto;
+  padding: 0;
+  list-style: none;
+  font-size: var(--t-mini);
+}
+
+.tarjeta__specs li {
+  padding: 2px var(--e-2);
+  border: 1.5px solid var(--tinta);
+  border-radius: 4px;
+}

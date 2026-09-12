@@ -1,0 +1,29 @@
+{
+  "name": "chatbot-catalogo-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend del asistente de ventas con IA sobre catalogo MySQL",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "probar:busqueda": "tsx scripts/probar-busqueda.ts",
+    "probar:ia": "IA_DEBUG=1 tsx scripts/probar-ia.ts",
+    "probar:chat": "tsx scripts/probar-chat.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.7.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
